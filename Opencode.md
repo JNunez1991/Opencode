@@ -44,7 +44,7 @@ Una vez instalado Opencode y sus dependencias, abrir una terminal (Warp / Powers
 
 *   <b>Contexto</b>: Es la información que tiene disponible para realizar una tarea (instrucciones, conversación, archivos, documentación y resultados de herramientas).
 
-*   <b>Agents.md</b>: Es un estándar de documentación diseñado para guiarse en proyectos donde intervienen agentes de Inteligencia Artificial o  desarrolladores humanos que colaboran con asistentes IA. A diferencia del clásico README.md (pensado principalmente para personas), el AGENTS.md proporciona instrucciones directas, directrices de arquitectura y reglas de contexto sobre cómo la IA debe leer, modificar, probar o generar código en ese repositorio. Debe incluir:
+*   <b>AGENTS.md</b>: Es un estándar de documentación diseñado para guiarse en proyectos donde intervienen agentes de Inteligencia Artificial o desarrolladores humanos que colaboran con asistentes IA. A diferencia del clásico README.md (pensado principalmente para personas), el AGENTS.md proporciona instrucciones directas, directrices de arquitectura y reglas de contexto sobre cómo la IA debe leer, modificar, probar o generar código en ese repositorio. Debe incluir:
     *   Contexto minimo (dos o tres frases) sobre lo que tiene que hacer
     *   Stack y estructura
     *   Patrones
@@ -58,11 +58,20 @@ Una vez instalado Opencode y sus dependencias, abrir una terminal (Warp / Powers
 
     El archivo se puede hacer manualmente o mediante `/init`:
     *   Lo crea vacio si el proyecto esta vacio.
-    *   Lo crea con contenido, en funcion de los archivos existentes en el proyecto (sera necesario editarlo para agregarle/quitarle cosas).
+    *   Lo crea con contenido, en funcion de los archivos existentes en el proyecto (analiza el proyecto y crea el archivo - sera necesario editarlo para agregarle/quitarle cosas).
 
     No importa la intefaz que este utilizando, el agente antes de hacer ejecutarse, siempre va a leer el `AGENTS.md`.
 
-    Cuanto mejor condensado este el archivo mejor (no sobrecargarlo).
+    Cuanto mas condensado este el archivo mejor (no sobrecargarlo).
 
+* <b>MEMORY.md</b>: La memoria de los agentes es finita. Si desarrollo mucho, la memoria acaba llenandose. Este archivo, permite reflejar cosas que quiero guardar de manera persistente. Hay cosas que quizas no son tan importantes como para guardarlas en el AGENTS.md, pero que son lo suficiente importantes como para que el agente las olvide. La idea es conectar este archivo al AGENTS.md, de forma que cada vez que le pido al agente que haga algo, analice primero el AGENTS.md, y luego el MEMORY.md.
+No es un estándar, es documentación extra.<br>
+Para conectar este archivo con el de AGENTS.md, alcanza con crear una sección dentro de él bajo el titulo Memoria, y algunas especificaciones.
+        
 
-    SEGUIR DESDE MINUTO 59 - CLASE 1
+# Build / Plan (Opencode)
+* Si mi terminal de opencode se encuentra en modo `Build`, cada instrucción que yo le de el agente se va a ejecutar
+* Si mi terminal de opencode se encuentra en modo `Plan`, no construye nada, sino que me permite trabajar en conjunto con el agente para determinar el mejor plan para llevar a cabo la tarea. El modo plan conviene utilzarlo para tareas grandes o refactor.
+
+Para cambiar entre ambos modos, SHIFT + TAB.
+
