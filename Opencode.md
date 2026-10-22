@@ -10,6 +10,8 @@ Es requisito previo tener instalado:
 * Node
 * NPM
 
+~ CLASE 1 ~
+
 # Consideracionse
 A lo largo de este curso utilizaremos WARP como terminal (mas versatil que PowerShell o CMD)
 
@@ -32,6 +34,7 @@ Una vez instalado Opencode y sus dependencias, abrir una terminal (Warp / Powers
     * `/undo` → Deshace los cambios impactados a partir del ultimo prompt
     * `/redo` → Rehace un mensaje 
     * `/diff` → Muestra los cambios en un archivo de código luego del ultimo cambio 
+    * `/update` → Actualiza Opencode en caso que haya salido alguna nueva version
     * `@` → Referencia a ficheros, carpetas, skills, etc (ejemplo de prompt: modifica el archivo `@intex.html` en base a lo siguiente...)
     * `!` → Modo Shell, ejecuta comandos de terminal sin salir de OpenCode (es un atajo para evitar abrir una nueva terminal)
     * `CTRL + P` → Muestra en detalle todos los comandos de OpenCode 
@@ -75,3 +78,52 @@ Para conectar este archivo con el de AGENTS.md, alcanza con crear una sección d
 
 Para cambiar entre ambos modos, SHIFT + TAB.
 
+~ CLASE 2 ~
+
+# Comandos personalizados
+Es un prompt reutilizable que ejecutas escribiendo /command. Permite repetir tareas habituales sin volver a escribir las instrucciones. <br>
+Creacion:
+1. En la raiz del proyecto, crear la carpeta `.opencode` → dentro de ella crear la carpeta `commands`. La carpeta `.opencode` no es un estandar, se utiliza para configuraciones propias de opencode.
+2. Dentro de la subcarpeta `commands`, crearemos los `.md` de cada comando personalizado que necesitemos. Importante, el nombre del archivo sera exactamente el nombre con el que lo voy a llamar. El archivo debe contener lo siguiente:
+    -   Descripcion: Resumir brevemente que hace ese comando
+    -   agent: Si el agente sera de `Build` o `Plan`
+    -   Contexto: Toda la descripcion de lo que debe realizar
+3. Reiniciar opencode y ejecutarlo (`/restart` - `/exit`)
+4. Documentacion oficial: https://opencode.ai/docs/commands/
+
+Se sugiere crear comandos solamente en aquellos casos donde las instrucciones que le doy se vuelven repetitivas (cada cierto tiempo le digo que haga la misma tarea). <br>
+
+<b>Utilizacion</b><br>
+Una vez creado el comando, alcanza con situar a opencode sobre la raiz del proyecto y llamar al comando `/feature` (asumiendo que lo llame feature.md). Deberia tambien poder verse la breve descripcion de que es lo que hace.
+
+```opencode
+/feature mostrar el total de minutos estudiados esta semana 
+```
+Una vez comience, es probable que nos haga preguntas respecto al curso de accion que voy a querer ir tomando para implementar esos cambios. Es posible que en cierto momento te diga que no puede aplicar los cambios porque, en este ejemplo, esta en modo `Plan`, por ende sera necesario cambiar a `Build`.
+
+Recordar que para ver todos los cambios implementados, se puede hacer un `/diff`.
+
+
+# Skills
+Conjunto de instrucciones reutilizables que enseña al agente como realizar una tarea concreta. El agente puede cargar las instrucciones completas cuando las necesita (o utilizando / o @).
+
+## Skils propias
+Creacion:
+1. En la raiz del proyecto crear la carpeta `.agents`, y dentro de ella crear una subcarpeta `skills`. 
+2. Dentro de `skills` voy a crear tantas carpetas como skills necesite. Cada carpeta con debera recibir el nombre que tendra la skill.
+3. Dentro de cada subcarpeta, se alojara el fichero `SKILL.md` con las instrucciones de la skill. Todas las skill deben tener esta estructura (quien define el nombre de la skill, es la subcarpeta).
+4. El formato del `SKILL.md` es muy parecido al utilizado al crear los comandos.
+5. Recordar hacer un `/restart`.
+6. Buscar la skill creada en `/skills`.
+
+La diferencia con los comandos es que el agente automaticamente va a conocer la existencia de sus skills, y sera el quien decida cual o cuales va a utilizar. Con la skill le doy la habilidad, pero no lo obligo a utilizarla. Respecto a los comandos, soy yo como usuario que decido cuando utilizarlo y cuando no.
+
+Ejemplo:
+Le pido al agente que trabaje de cierta manera con las fechas. El agente primero se va a preguntar si tiene alguna habilidad que le permita hacerlo. Luego sera el quien decida si la utiliza o no. Voy a crear una nueva funcionalidad que me devuelva cuantos dias llevo estudiados este mes
+```opencode
+/feature quiero mostrar cuantos dias he estudiado este mes. ¿Vas a utilizar alguna skill?
+```
+Deberia ver en el log de opencode que el agente llamar al skill creado para manejar fechas.
+
+## Skills de terceros
+seguir desde el minuto 25
