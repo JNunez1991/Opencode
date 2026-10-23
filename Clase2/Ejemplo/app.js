@@ -130,7 +130,7 @@ function updateStreak() {
     const streak = calculateStreak(sessions);
     streakNumber.textContent = streak;
     streakTotal.textContent = formatTotalMinutes(calculateTotalMinutes(sessions));
-    streakMonth.textContent = `${calculateDaysThisMonth(sessions)} días este mes`;
+    streakMonth.textContent = calculateDaysThisMonth(sessions);
 }
 
 function refresh() {

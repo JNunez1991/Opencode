@@ -10,6 +10,7 @@ sesiones.
 - Validación: no permite fechas futuras.
 - Contador de días estudiados este mes.
 - Datos en localStorage. 
+- **Nuevo diseño "Field Notebook": estética de cuaderno de campo/laboratorio, tipografía mono para contadores, acento teal, líneas de papel sutiles, secciones como "páginas".**
 
 ## Aprendizajes y errores a evitar 
 - (vacío por ahora) 
@@ -17,6 +18,7 @@ sesiones.
 ## Decisiones (y por qué) 
 - Sin backend ni dependencias: cualquiera debe poder abrirlo con doble clic. 
 - Fecha editable en el formulario: permite registrar días pasados y ver la racha crecer. 
+- **Diseño distintivo intencional: evita patrones genéricos (gradientes naranja, tarjetas redondeadas idénticas, sombras suaves). Usa metáfora de cuaderno de ingeniero: papel cálido, tinta monoespaciada, acento único teal, jerarquía clara.**
 
 ## Próximos pasos 
 - (vacío por ahora) 

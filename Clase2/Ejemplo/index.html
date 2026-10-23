@@ -14,12 +14,20 @@
 
         <section class="streak-section">
             <div class="streak-card">
-                <span class="streak-fire">🔥</span>
+                <span class="streak-fire" aria-hidden="true">🔥</span>
                 <div class="streak-info">
                     <span class="streak-number" id="streakNumber">0</span>
                     <span class="streak-label">días seguidos</span>
-                    <span class="streak-total" id="streakTotal">0h 0min</span>
-                    <span class="streak-month" id="streakMonth">0 días este mes</span>
+                    <div class="streak-meta">
+                        <div class="streak-stat">
+                            <span class="streak-stat-value" id="streakTotal">0h 0min</span>
+                            <span class="streak-stat-label">Total</span>
+                        </div>
+                        <div class="streak-stat">
+                            <span class="streak-stat-value" id="streakMonth">0</span>
+                            <span class="streak-stat-label">Días este mes</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

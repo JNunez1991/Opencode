@@ -126,4 +126,34 @@ Le pido al agente que trabaje de cierta manera con las fechas. El agente primero
 Deberia ver en el log de opencode que el agente llamar al skill creado para manejar fechas.
 
 ## Skills de terceros
-seguir desde el minuto 25
+Conjunto de skills compartidas creadas por la comunidad/empresas.
+Vamos a utilizar la pagina: `skills.sh` como referencia.
+
+Para mejorar la interfaz de la aplicacion, vamos a utilizar la skill: `frontend-desing` (revisar la cantidad de descargas para verificar que sea segura).
+
+Para utilizarla, podriamos acceder al documento que genera la skill y hacer lo mismo que hicimos con la skill anterior. Sin embargo, existe un metodo mucho mas sencillo.
+1. Comenzamos por instalar el CLI necesario: 
+``` powershell
+npx skills add vercel-labs/agent-skills
+```
+Este paso nos permite instalar Skills de terceros mediante un asistente (wizard).
+2. Luego de culminada la instalacion, en el home de la pagina web buscamos la skill deseada: https://www.skills.sh/anthropics/skills/frontend-design
+3. Copiar el comando de instalacion en una terminal de Powerswell: 
+``` powershell
+npx skills add https://github.com/anthropics/skills --skill frontend-design 
+```
+4. Una vez definido el scope de la skill (si se instala a nivel global o de proyecto), volvemos a opencode, la damos `/restart` y le damos una instruccion de que mejora la interfaz grafica. Podemos llamar la skill a mano mediante `@frontend-desing`, o dejar que el agente la encuentre solo.
+``` powershell
+@frontend-design con lo que sabes mejora el diseño
+```
+5. Deberia haberse modificado `MEMORY.md` con lo que haya aprendido a partir del skill.
+
+### Skilss starter pack
+- find-skills (Vercel): Busca e instala skills del ecosistema cuando necesitas una capacidad nueva.
+- grill-me (Matt Pocock): Te hace preguntas sobre tu plan hasta cubrir todos los casos antes de implementar.
+- frontend-design (Anthropic): Crea interfaces con un diseño cuidado y profesional
+- web-design-guidelines (Vercel): Revisa la interfaz y detecta problemas de accesibildad, UX y diseño.
+- systematic-debugging (Jesse Vincent): Depura con metodo (reproducir, aislar, formular hipotesis y verificar).
+
+# MCP (Model Context Protocol)
+Se ignora porque no lo veo relevante (comienza en el minuto 33.00)
