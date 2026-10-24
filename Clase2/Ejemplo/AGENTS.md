@@ -16,6 +16,12 @@ programar.
 - localStorage, clave `diario-estudio-sesiones`: array de `{ date: "AAAA-MM-DD", topic, minutes }`. 
 - Si cambias la forma de los datos, mantén compatibilidad con lo ya guardado o el usuario perderá sus sesiones. 
 
+## Comandos
+- Tests: `node --tests`.
+
+## Reglas
+- Lee `docs/constitution.md` y la spec activa (`specs/NNN-*`) antes de tocar codigo.
+
 ## Límites 
 - ✅ Siempre: respetar las reglas de fechas y racha, mantener los textos en español, actualiza `MEMORY.md` al terminar cada tarea
 - ⚠️ Pregunta antes: crear archivos nuevos, cambiar el formato de los datos guardados.

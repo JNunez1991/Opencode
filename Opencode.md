@@ -156,4 +156,84 @@ npx skills add https://github.com/anthropics/skills --skill frontend-design
 - systematic-debugging (Jesse Vincent): Depura con metodo (reproducir, aislar, formular hipotesis y verificar).
 
 # MCP (Model Context Protocol)
-Se ignora porque no lo veo relevante (comienza en el minuto 33.00)
+Se ignora porque no lo veo relevante (comienza en el minuto 33.00 al 45.00)
+
+# SDD (Spec Driven Development)
+Desarrollo asistido por especificaciones.
+Es una forma de desarrollar software en la que primero defines que debe hacer el sistema, sus requisitos, limites y criterios de aceptacion, y utilizas esa especificacion para guiar la implementacion y comprobar el resultado.
+- <b>Flujo de desarrollo clásico</b><br> 
+Análisis → Diseño → Implementacion → Validación → Despliegue / Mantenimiento → Repeticion
+- <b>Flujo de desarrollo SDD</b><br> 
+Especificación → Planificación → Implementacion → Validación → Despliegue / Mantenimiento → Repeticion
+
+## Taxonomia SDD
+Diferentes formas de entenderlo.
+- <b>Spec-First</b>: Escribes la especificaciòn antes de programar, pero no necesariamente la mantienes despues (hago la especificación, se implementa, y luego la especificación muere).
+- <b>Spec-anchored</b>: Conservas y actualizas la especificación para guiar la evolución del código.
+- <b>Spec-as-source</b>: Editas unicamente la especificación y el código se genera a partir de ella y no se modifica manualmente.
+
+## EARS (Easy Approach to Requirements Syntax)
+Es una forma de escribir requisitos con planitllas fijas para que no sean ambiguos.
+Funcionan bien con la IA porque:
+- Cada requisito se puede verificar, asi que se convierte casi directamente en un test
+- El 'si...entonces' obliga a pensar los errores, que es justo lo que la IA suele olvidar.
+- Una frase = un comportamiento. Nada de parrafos donde el agente tenga que interpretar.
+
+## SDD: Paso a paso 
+El objetivo sera llegar a una estructura de este estilo:
+```
+project/ 
+├── .agents/
+├── .opencode/
+├── AGENTS.md 
+├── MEMORY.md 
+├── docs/ 
+│   └── constitution.md 
+├── specs/ 
+│   ├── 001-nombre-spec/ 
+│   │   ├── spec.md 
+│   │   ├── plan.md 
+│   │   └── tasks.md 
+│   ├── 002-nombre-spec/... 
+│   └── 003-nombre-spec/... 
+├── tests/ 
+└── <CÓDIGO DEL PROYECTO>
+```
+
+1. <b>Constitución (una vez por proyecto)</b><br>
+Como tenemos que acabar indicando de manera general cual es el fichero de conocimiento de nuestro agente → Crear carpeta `docs` en la raiz del proyecto, y dentro de ella, el archivo `constitution.md`.<br>
+Si voy a trabajar con SDD, recordar agregar alguna referencia en el `AGENTS.md`.
+Ejemplo: Prompt para generar el contenido del archivo <br>
+> Vamos a crear la constitución del Diario de Estudio. Es un proyecto que ya existe: lee AGENTS.md, MEMORY.md y el código antes de proponer nada. Es un proyecto educativo que debe poder mantener alguien que empieza a programar. 
+> Proponme un docs/constitution.md con 6 principios innegociables, cortos y verificables, que cubran: simplicidad del stack, relación entre spec y código,separación entre lógica e interfaz, política de tests (sin instalar dependencias), protección de los datos del usuario e idioma del código y los textos. Máximo 15 líneas. 
+> Espera mi aprobación.
+
+Si lo tengo muy claro, no preciso pasarle un prompt a la IA, lo hago a mano.
+
+2. <b>Especificación `spec.md`</b><br>
+Creamos la carpeta `specs` donde se van a incluir todas las especificaciones.
+Cada especificacion va numerada en una carpeta y con un nombre representativo de lo que hace, por ejemplo, `001-heat-map/spec.md`
+Ejemplo: Prompt para crear un spec <br>
+> NO escribas código en ningún momento. Vamos a redactar la especificación de una nueva funcionalidad del Diario de Estudio. Lee docs/constitution.md. 
+> Idea inicial: un mapa de calor tipo GitHub que muestre los días estudiados de las últimas  semanas, donde cuantos más minutos estudiados, más intenso es el color del día. 
+> Tu trabajo: 
+> 1-  Hazme preguntas de UNA en UNA para eliminar ambigüedades (casos límite,  comportamiento con errores, qué queda fuera de esta versión). Máximo 5 preguntas. 
+> 2-  Con mis respuestas, genera specs/001-heat-map/spec.md con esta  estructura: contexto y objetivo, usuarios, historias de usuario, requisitos funcionales numerados (RF-x) con criterios de aceptación en notación EARS en español, requisitos no funcionales, casos límite, fuera de alcance, criterios de finalización y dudas abiertas marcadas como  [NECESITA ACLARACIÓN]. 
+> 3- El QUÉ y el POR QUÉ. Nada de stack, arquitectura ni nombres de archivos:  eso irá en el plan. 
+
+3. <b>Clarificación</b><br>
+Utilizamos el propio agente para que revise la spec, porque muchas veces los modelos no son capaces de llegar a la mejor solucion a la primera.
+Ejemplo: Prompt para revisar un spec
+> Revisa specs/001-heat-map/spec.md como si fueras un QA muy profesional.  Lista: (1) ambigüedades restantes, (2) contradicciones entre requisitos, (3) casos límite no cubiertos, (4) conflictos con docs/constitution.md. No propongas soluciones todavía: solo detecta. Formato: lista numerada.
+
+4. <b>Planificación `plan.md`</b><br>
+Una vez que determinamos que la spec esta correcta, es momento de pasar a la etapa de implementacion.
+Ejemplo: Prompt para la planificacion
+> Lee docs/constitution.md y specs/001-heat-map/spec.md. NO escribas código. Genera specs/001-heat-map/plan.md con: qué archivos se crean o modifican y qué responsabilidad tiene cada uno, qué funciones puras de lógica se necesitan (con "hoy" como parámetro), algoritmo del mapa en pseudocódigo, cómo se pinta en la interfaz, decisiones técnicas justificadas (y su  alternativa descartada) y estrategia de tests con node --test. Todo debe respetar la constitución y cubrir todos los RF. Marca qué RF cubre cada parte.
+
+SEGUIR DESDE 1.03
+
+5. <b>Tareas `tasks.md`</b><br>
+6. <b>Implementación</b><br>
+7. <b>Validación</b><br>
+8. Loop al paso 2 (mantenimiento)
