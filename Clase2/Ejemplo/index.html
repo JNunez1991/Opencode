@@ -32,6 +32,27 @@
             </div>
         </section>
 
+        <section class="heatmap-section" aria-label="Mapa de calor de actividad de 20 semanas">
+            <h2>Actividad reciente</h2>
+            <div class="heatmap-wrapper">
+                <!-- Eje vertical: días L M X J V S D -->
+                <div class="heatmap-y-axis" aria-hidden="true">
+                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                </div>
+                <!-- Grid del mapa -->
+                <div class="heatmap-grid" role="grid" tabindex="0" aria-roledescription="mapa de calor" aria-label="Mapa de calor de 20 semanas, navega con flechas">
+                    <!-- 140 <button class="heatmap-day"> generados por JS -->
+                </div>
+            </div>
+            <!-- Leyenda RF-6 -->
+            <div class="heatmap-legend" aria-hidden="true">
+                <span class="heatmap-legend-label">Menos</span>
+                <div class="heatmap-legend-gradient"></div>
+                <span class="heatmap-legend-label">Más</span>
+                <div class="heatmap-legend-ticks" aria-hidden="true"></div>
+            </div>
+        </section>
+
         <section class="form-section">
             <h2>Registrar sesión</h2>
             <form id="sessionForm">

@@ -10,7 +10,7 @@ Es requisito previo tener instalado:
 * Node
 * NPM
 
-~ CLASE 1 ~
+<h1 style="color: #548c3e;">Clase 1</h1>
 
 # Consideracionse
 A lo largo de este curso utilizaremos WARP como terminal (mas versatil que PowerShell o CMD)
@@ -78,7 +78,7 @@ Para conectar este archivo con el de AGENTS.md, alcanza con crear una sección d
 
 Para cambiar entre ambos modos, SHIFT + TAB.
 
-~ CLASE 2 ~
+<h1 style="color: #548c3e;">Clase 2</h1>    
 
 # Comandos personalizados
 Es un prompt reutilizable que ejecutas escribiendo /command. Permite repetir tareas habituales sin volver a escribir las instrucciones. <br>
@@ -231,9 +231,59 @@ Una vez que determinamos que la spec esta correcta, es momento de pasar a la eta
 Ejemplo: Prompt para la planificacion
 > Lee docs/constitution.md y specs/001-heat-map/spec.md. NO escribas código. Genera specs/001-heat-map/plan.md con: qué archivos se crean o modifican y qué responsabilidad tiene cada uno, qué funciones puras de lógica se necesitan (con "hoy" como parámetro), algoritmo del mapa en pseudocódigo, cómo se pinta en la interfaz, decisiones técnicas justificadas (y su  alternativa descartada) y estrategia de tests con node --test. Todo debe respetar la constitución y cubrir todos los RF. Marca qué RF cubre cada parte.
 
-SEGUIR DESDE 1.03
-
 5. <b>Tareas `tasks.md`</b><br>
+Crea la lista de tareas a partir de la planificación.
+Ejemplo: Prompt para la creacion de las tareas
+> A partir de spec.md y plan.md, genera specs/001-heat-map/tasks.md:  tareas pequeñas (máx. 20-30 min cada una), en orden de dependencia, cada una con los RF que cubre y una línea "Hecho cuando:" verificable. Usa checkboxes. 
+
 6. <b>Implementación</b><br>
+Poner en ejecución la planificado (todo, o ciertas partes),
+Ejemplo: Prompt para la implementacion
+> Implementa SOLO la tarea T1 de specs/001-heat-map/tasks.md, siguiendo plan.md y la constitución. Escribe primero los tests, luego el código. Ejecuta node --test y muéstrame el resultado. Al terminar: marca T1 en tasks.md, indica qué RF cubre y PÁRATE. No empieces T2.
+
 7. <b>Validación</b><br>
-8. Loop al paso 2 (mantenimiento)
+Sirve para validar la/s especificacion/es implementada.
+Ejemplo: Prompt para la validacion
+> Recorre specs/001-heat-map/spec.md requisito por requisito. Para cada uno indica qué test lo cubre y el resultado de ejecutarlo. Los RF de interfaz que no se puedan testear con node --test, verifícalos con Chrome DevTools (incluida la vista móvil). Si algún RF no está cubierto o falla, dilo claramente. Después comprueba los criterios de finalización y dame un veredicto: ¿la spec está cumplida? 
+
+Si la especificacion no esta cumplida, volvemos a iterar hasta lograrlo.
+
+8. <b>Loop al paso 2 (mantenimiento)</b><br>
+Seguir iterando sobre las tareas siguientes.
+
+
+## Automatizacion
+Todos estos pasos que estuvimos haciendo, podemos automatizarlos a partir de la creacion de nuevos archivos `.md` en la carpeta de `/commands`.<br>
+Revisar todos los arhivos `sdd-<nombre>.md` dentro de `.opencode/commands`.
+
+
+<h1 style="color: #548c3e;">Clase 3</h1>
+La idea de esta clase es trabajar con Multiagentes / Subagentes, como forma de terminar de automatizar el flujo de trabajo.
+
+# Agentes personalizados
+<b>Custom agent (/agents)</b><br>
+Es un asistente de IA configurado para una funciòn específica, con sus propias instrucciones, permisos y, opcionalmente, modelo. Por ejemplo: Un revisor de codigo o un especialista en implementacion.
+
+<b>Creacion</b><br>
+1. Crea el archivo `my_agent.md` dentro de `.opencode/agents/`
+2. Añade su configuración e instrucciones
+3. Reinicia Opencode e invócalo con `@`
+
+# Subagentes personalizados
+<b>Subagente</b><br>
+Es un agente especializado al que el agente prinicipal puede delegar una tarea. Trabaja en una sesión separada y devuelve el resultado al principal. Tambien puedes invocarlo con `@nombre`.
+
+<b>Creacion</b><br>
+1. Crea el archivo `my_subagent.md` dentro de `.opencode/agents/`.
+2. Añade su configuración e instrucciones con `mode:subagent`.
+3. Reinicia Opencode e invócalo con `@`
+
+# Agentes en Opencode
+- Agentes principales
+    - build: El agente por defecto. Tiene todas las herramientas y es el que escribe codigo
+    - plan: Para analizar y planificar
+- Subagentes
+    - general: investiga y hace tareas en varios pasos
+    - explore: explora codigo o webs (solo lectura)
+
+
