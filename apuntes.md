@@ -237,7 +237,7 @@ Ejemplo: Prompt para la creacion de las tareas
 > A partir de spec.md y plan.md, genera specs/001-heat-map/tasks.md:  tareas pequeñas (máx. 20-30 min cada una), en orden de dependencia, cada una con los RF que cubre y una línea "Hecho cuando:" verificable. Usa checkboxes. 
 
 6. <b>Implementación</b><br>
-Poner en ejecución la planificado (todo, o ciertas partes),
+Poner en ejecución la planificado (todo, o ciertas partes).
 Ejemplo: Prompt para la implementacion
 > Implementa SOLO la tarea T1 de specs/001-heat-map/tasks.md, siguiendo plan.md y la constitución. Escribe primero los tests, luego el código. Ejecuta node --test y muéstrame el resultado. Al terminar: marca T1 en tasks.md, indica qué RF cubre y PÁRATE. No empieces T2.
 
@@ -284,6 +284,61 @@ Es un agente especializado al que el agente prinicipal puede delegar una tarea. 
     - plan: Para analizar y planificar
 - Subagentes
     - general: investiga y hace tareas en varios pasos
-    - explore: explora codigo o webs (solo lectura)
+    - explore: explora codigo o webs, como solo lectura (se invoca con `@explore`)
 
+# Multiagentes
+Es un conjunto de agentes de IA que se coordinan para resolver una tarea o un proyecto.
+Cada agente puede asumir una especialidad (planificar, implementar o revisar) y compartir sus resutlados. Pueden trabajar en paralelo o por turnos, coordinados por un agente principal, un flujo de trabajo o una persona.
+
+<b>Flujo multiagente clasico</b><br>
+Coordinador → Planificador → Implementador → Verificador
+- Coordinador (A): Organiza las fases y transmite el contexto. No deberia tener permisos para editar archivos.
+- Planificador (S): Analiza la peticion y diseña la solucion
+- Implementador (S): Modifica el codigo y ejecuta las pruebas
+- Revisor (S): Comprueba el codigo frente al plan 
+
+<b>Creacion</b><br>
+Crear la carpeta `.agents.md` dentro de `.opencode`. <br>
+Dentro de esta carpeta es donde vamos a situar a cada uno de los roles mencionados en el punto anterior.
+```
+project/ 
+├── AGENTS.md
+├── MEMORY.md 
+├── docs/... 
+├── specs/... 
+├── tests/... 
+├── .agents/ 
+├── .opencode/ 
+│ └── agents/ 
+│ │ ├── coordinator.md 
+│ │ ├── planner.md 
+│ │ ├── implementer.md 
+│ │ └── reviewer.md 
+│ └── commands/... 
+└── <CÓDIGO DEL PROYECTO> 
+```
+Ver el contenido de cada archivo
+
+<b>Utilizacion</b><br>
+Una vez tenemos creados los subagentes y reiniciamos opencode, podemos acceder a el a partir de `/agents` o mediante `Shift + TAB`.<br>
+Con `Coordinator` activo, le pasamos un prompt para que cree una nueva funcionalidad que setee la cantidad de minutos semanales que quiero estudiar, y calcule cuantos minutos me faltan.
+Ejemplo:
+> Quiero añadir un objetivo semanal de estudio: poder fijar cuántos minutos quiero estudiar cada semana y ver cuánto llevo, para motivarme a cumplirlo. Sigue el flujo SDD completo.
+
+El resultado de todo es proceso deberia ser la creacion de una nueva spec dentro de la carpeta `specs`.
+
+<b>Utilizacion en paralelo</b><br>
+Tambien se puede ejecutar varios agentes en simultáneo, con distintos enfoques.<br>
+Por ejemplo:
+> Lanza en paralelo tres @reviewer sobre la spec 002, cada uno con un foco distinto: 
+> 1. Constitución y reglas de fechas (skill local-dates). 
+> 2. Interfaz: accesibilidad y vista móvil con Chrome DevTools. 
+> 3. Tests: qué RF están cubiertos por node --test y cuáles no.
+> 4. Cuando terminen los tres, junta sus resultados en un único informe, sin duplicados, con un veredicto final.
+
+# Definiciones adicionales
+1. Loop Engineering: Diseñar ciclos en losque un agente ejecuta, comprueba y corrige su trabajo hasta cumplir un objetivo o alcanzar un limite
+2. Graph Engineering: Organizar agentes y tareas como un grafo de conexiones, dependencias y decisiones, definiendo como se coordinan y comparten informacion
+3. AgentOps: Supervisar el funcionamiento de los agentes mediante registros, metricas y seguimiento de sus acciones, para detectar fallos y mantener su fiabilidad
+4. Eval Engeneering: Diseñar pruebas y metricas para medir si los agentes cumplen sus objetivos y detectar si un cambio mejora o empeora sus resultados.
 

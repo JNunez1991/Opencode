@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diario de Estudio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Diario de Estudio</h1>
+        </header>
+
+        <section class="streak-section">
+            <div class="streak-card">
+                <span class="streak-fire" aria-hidden="true">🔥</span>
+                <div class="streak-info">
+                    <span class="streak-number" id="streakNumber">0</span>
+                    <span class="streak-label">días seguidos</span>
+                    <div class="streak-meta">
+                        <div class="streak-stat">
+                            <span class="streak-stat-value" id="streakTotal">0h 0min</span>
+                            <span class="streak-stat-label">Total</span>
+                        </div>
+                        <div class="streak-stat">
+                            <span class="streak-stat-value" id="streakMonth">0</span>
+                            <span class="streak-stat-label">Días este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="heatmap-section" aria-label="Mapa de calor de actividad de 20 semanas">
+            <h2>Actividad reciente</h2>
+            <div class="heatmap-wrapper">
+                <!-- Eje vertical: días L M X J V S D -->
+                <div class="heatmap-y-axis" aria-hidden="true">
+                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                </div>
+                <!-- Grid del mapa -->
+                <div class="heatmap-grid" role="grid" tabindex="0" aria-roledescription="mapa de calor" aria-label="Mapa de calor de 20 semanas, navega con flechas">
+                    <!-- 140 <button class="heatmap-day"> generados por JS -->
+                </div>
+            </div>
+            <!-- Leyenda RF-6 -->
+            <div class="heatmap-legend" aria-hidden="true">
+                <span class="heatmap-legend-label">Menos</span>
+                <div class="heatmap-legend-gradient"></div>
+                <span class="heatmap-legend-label">Más</span>
+                <div class="heatmap-legend-ticks" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Registrar sesión</h2>
+            <form id="sessionForm">
+                <div class="form-group">
+                    <label for="date">Fecha</label>
+                    <input type="date" id="date" name="date" required max="">
+                </div>
+                <div class="form-group">
+                    <label for="topic">Tema</label>
+                    <input type="text" id="topic" name="topic" placeholder="Ej: JavaScript, React, Algoritmos..." required>
+                </div>
+                <div class="form-group">
+                    <label for="minutes">Minutos</label>
+                    <input type="number" id="minutes" name="minutes" min="1" placeholder="Ej: 45" required>
+                </div>
+                <button type="submit" class="btn-primary">Guardar sesión</button>
+            </form>
+        </section>
+
+        <section class="sessions-section">
+            <h2>Sesiones registradas</h2>
+            <ul id="sessionsList" class="sessions-list"></ul>
+            <p id="emptyMessage" class="empty-message" hidden>No hay sesiones aún. ¡Registra tu primera sesión!</p>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
